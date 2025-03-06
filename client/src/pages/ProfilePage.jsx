@@ -1,63 +1,84 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import {
+  fetchUserProfile,
+  fetchFollowingArtists,
+  fetchPlaylists,
+} from "../data/spotifyAPI";
+import TopArtists from "../components/TopArtists";
+import TopTracks from "../components/TopTracks";
 
 const ProfilePage = ({ access_token }) => {
   const [profile, setProfile] = useState(null);
   const [following, setFollowing] = useState(null);
+  const [playlists, setPlaylists] = useState(null);
 
   useEffect(() => {
     if (!access_token) {
       return;
     }
 
-    axios
-      .get("https://api.spotify.com/v1/me", {
-        headers: { Authorization: `Bearer ${access_token}` },
-      })
-      .then((res) => {
-        setProfile(res.data);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch profile:", err);
-      });
+    const getData = async () => {
+      const userProfile = await fetchUserProfile(access_token);
+      const followingCount = await fetchFollowingArtists(access_token);
+      const userPlaylists = await fetchPlaylists(access_token);
+
+      setProfile(userProfile);
+      setFollowing(followingCount);
+      setPlaylists(userPlaylists);
+    };
+
+    getData();
   }, [access_token]);
 
-  useEffect(() => {
-    if (!access_token) {
-      return;
-    }
-
-    axios
-      .get("https://api.spotify.com/v1/me/following?type=artist", {
-        headers: { Authorization: `Bearer ${access_token}` },
-      })
-      .then((res) => {
-        setFollowing(res.data.artists.total);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch following artists:", err);
-      });
-  }, [access_token]);
-
-  if (!profile) {
+  if (!profile || !following || !playlists) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="flex flex-col justify-center items-center mt-20 gap-4">
-      <img
-        src={profile.images[0]?.url}
-        alt="Profile"
-        className="w-[150px] rounded-[5rem]"
-      />
-      <h1>{profile.display_name}</h1>
-      <div className="flex gap-4">
-        <p>Followers: {profile.followers.total}</p>
-        <p>Following: {following}</p>
-      </div>
-      <button>Logout</button>
-    </div>
+    <>
+      <header className="flex flex-col justify-center items-center mt-20 gap-8">
+        <img
+          src={profile.images[0]?.url}
+          alt="Profile"
+          className="w-[150px] rounded-[5rem]"
+        />
+        <h1 className="text-5xl font-medium">{profile.display_name}</h1>
+        <div className="flex gap-4">
+          <div className="flex flex-col items-center">
+            <p className="text-[1.20rem] text-green-600 font-bold">
+              {profile.followers.total}
+            </p>
+            <p className="uppercase text-[0.85rem] font-light text-gray-500 tracking-[1px]">
+              Followers
+            </p>
+          </div>
+          <div className="flex flex-col items-center">
+            <p className="text-[1.20rem] text-green-600 font-bold">
+              {following}
+            </p>
+            <p className="uppercase text-[0.85rem] font-light text-gray-500 tracking-[1px]">
+              Following
+            </p>
+          </div>
+          <div className="flex flex-col items-center">
+            <p className="text-[1.20rem] text-green-600 font-bold">
+              {playlists.total}
+            </p>
+            <p className="uppercase text-[0.85rem] font-light text-gray-500 tracking-[1px]">
+              Playlists
+            </p>
+          </div>
+        </div>
+        <button className="border-1 px-6 py-2 rounded-[3rem] uppercase text-[0.85rem] font-light tracking-[1px] hover:bg-amber-50 hover:text-black transition duration-350">
+          Logout
+        </button>
+      </header>
+      <main className="mt-6 md:grid md:grid-cols-2 md:py-[3rem] px-[8rem] font-extralight ">
+        <TopArtists access_token={access_token} />
+        <TopTracks access_token={access_token} />
+      </main>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProfilePage from "./pages/ProfilePage";
-import { BrowserRouter, Routes, Route, Router } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import TopArtists from "./pages/TopArtists";
 import TopTracks from "./pages/TopTracks";
@@ -13,13 +13,13 @@ const App = () => {
   const access_token = UseAuth();
 
   return (
-    <>
+    <BrowserRouter>
       {!access_token ? (
         <Login />
       ) : (
-        <div>
+        <>
           <Sidebar />
-          <div className="md:ml-[100px] ">
+          <div className="md:ml-[100px] mb-[100px]">
             <Routes>
               <Route
                 path="/"
@@ -31,9 +31,9 @@ const App = () => {
               <Route path="/playlists" element={<Playlists />} />
             </Routes>
           </div>
-        </div>
+        </>
       )}
-    </>
+    </BrowserRouter>
   );
 };
 
