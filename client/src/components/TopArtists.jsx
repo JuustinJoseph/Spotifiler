@@ -19,7 +19,7 @@ const TopArtists = ({ access_token }) => {
     <div className="flex flex-col px-4 gap-4 ">
       <div className="flex justify-between items-center">
         <h2 className="font-semibold">Your Top Artists</h2>
-        <button className="border-1 px-6 py-2 rounded-[3rem] uppercase text-[0.85rem] font-light tracking-[1px] hover:bg-amber-50 hover:text-black transition duration-350">
+        <button className="border-1 px-6 py-2 rounded-[3rem] uppercase text-[0.85rem] font-light tracking-[1px] hover:bg-amber-50 hover:text-black transition duration-350 cursor-pointer">
           See more
         </button>
       </div>
@@ -28,7 +28,7 @@ const TopArtists = ({ access_token }) => {
           topArtists.slice(0, 10).map((artist) => (
             <li
               key={artist.id}
-              className="grid grid-cols-[1fr_2fr] items-center py-2 justify-items-start"
+              className="grid md:grid-cols-[1fr_4fr] grid-cols-[1fr_3fr] items-center py-2 justify-items-start"
             >
               <a href={artist.external_urls.spotify} target="_blank">
                 <img

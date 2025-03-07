@@ -2,7 +2,9 @@ import { React, useState, useEffect } from "react";
 import axios from "axios";
 
 const UseAuth = () => {
-  const [accessToken, setAccessToken] = useState(null);
+  const [accessToken, setAccessToken] = useState(
+    localStorage.getItem("access_token") || null
+  );
   const [refreshToken, setRefreshToken] = useState(null);
   const [expiresIn, setExpiresIn] = useState(null);
 
@@ -16,6 +18,8 @@ const UseAuth = () => {
       setAccessToken(access_token_from_url);
       setRefreshToken(refresh_token_from_url);
       setExpiresIn(expiresIn_from_url);
+
+      localStorage.setItem("access_token", access_token_from_url);
 
       window.history.pushState({}, null, "/");
     }
