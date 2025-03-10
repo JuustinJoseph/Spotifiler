@@ -19,7 +19,7 @@ const App = () => {
       ) : (
         <>
           <Sidebar />
-          <div className="md:ml-[100px] md:mb-[20px] mb-[80px]">
+          <div className="md:ml-[100px] md:mr-[100px] md:mb-[20px] mb-[80px]">
             <Routes>
               <Route
                 path="/"

@@ -92,7 +92,7 @@ const ProfilePage = ({ access_token }) => {
           Logout
         </button>
       </header>
-      <main className="mt-6 md:grid md:grid-cols-2 md:py-[3rem] md:px-[8rem] font-extralight ">
+      <main className="mt-6 md:grid md:grid-cols-2 md:py-[3rem] md:px-[8rem] md:gap-8 font-extralight ">
         <TopArtists access_token={access_token} />
         <TopTracks access_token={access_token} />
       </main>

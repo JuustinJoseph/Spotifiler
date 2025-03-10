@@ -71,3 +71,33 @@ export const fetchTopTracksShortTerm = async (accessToken) => {
     return null;
   }
 };
+
+export const fetchTopTracksLongTerm = async (accessToken) => {
+  try {
+    const response = await axios.get(
+      "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50",
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+    return response.data.items;
+  } catch (error) {
+    console.error("Error fetching top tracks (short term):", error);
+    return null;
+  }
+};
+
+export const fetchTopArtistsLongTerm = async (accessToken) => {
+  try {
+    const response = await axios.get(
+      "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50",
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+    return response.data.items;
+  } catch (error) {
+    console.error("Error fetching top artists (short term):", error);
+    return null;
+  }
+};
