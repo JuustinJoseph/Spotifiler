@@ -19,13 +19,16 @@ const App = () => {
       ) : (
         <>
           <Sidebar />
-          <div className="md:ml-[100px] md:mr-[100px] md:mb-[20px] mb-[80px]">
+          <div className="md:ml-[100px] md:mr-[80px] md:mb-[20px] mb-[80px]">
             <Routes>
               <Route
                 path="/"
                 element={<ProfilePage access_token={access_token} />}
               />
-              <Route path="/artists" element={<TopArtists />} />
+              <Route
+                path="/artists"
+                element={<TopArtists access_token={access_token} />}
+              />
               <Route path="/tracks" element={<TopTracks />} />
               <Route path="/recent" element={<Recent />} />
               <Route path="/playlists" element={<Playlists />} />
