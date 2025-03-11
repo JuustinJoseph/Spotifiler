@@ -12,7 +12,7 @@ import {
 const Sidebar = () => {
   return (
     <nav>
-      <div className="flex md:flex-col  bottom-0 w-screen h-[70px] items-center text-[0.80rem] bg-black text-neutral-50 fixed md:top-0 md:left-0 md:h-screen md:w-[100px] md:justify-between md:py-4">
+      <div className="flex md:flex-col  bottom-0 w-screen h-[70px] px-0 items-center text-[0.80rem] bg-black text-neutral-50 fixed md:top-0 md:left-0 md:h-screen md:w-[100px] md:justify-between md:py-4">
         <div className="hidden md:block cursor-pointer">
           <FontAwesomeIcon icon={faSpotify} size="3x" color="green" />
         </div>
