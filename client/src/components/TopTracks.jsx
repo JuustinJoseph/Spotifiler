@@ -11,7 +11,6 @@ const TopTracks = ({ access_token }) => {
     const fetchData = async () => {
       const top_tracks = await fetchTopTracksLongTerm(access_token);
       setTopTracks(top_tracks);
-      console.log(top_tracks);
     };
     fetchData();
   }, [access_token]);

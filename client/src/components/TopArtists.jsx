@@ -11,7 +11,6 @@ const TopArtists = ({ access_token }) => {
     const fetchData = async () => {
       const top_artists = await fetchTopArtistsLongTerm(access_token);
       setTopArtists(top_artists);
-      console.log(top_artists);
     };
     fetchData();
   }, [access_token]);
