@@ -1,9 +1,12 @@
 import { React, useEffect, useState } from "react";
 import { fetchTopArtistsLongTerm } from "../data/spotifyAPI";
 import Footer from "../components/Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 
 const TopArtists = ({ access_token }) => {
   const [topArtists, setTopArtists] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!access_token) {
@@ -12,9 +15,19 @@ const TopArtists = ({ access_token }) => {
     const fetchData = async () => {
       const top_artists = await fetchTopArtistsLongTerm(access_token);
       setTopArtists(top_artists);
+      setLoading(false);
     };
     fetchData();
   }, [access_token]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen text-green-600 opacity-40 gap-4">
+        <FontAwesomeIcon icon={faCirclePlay} size="4x" fade />
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -36,7 +49,10 @@ const TopArtists = ({ access_token }) => {
         <div>
           <div className="grid grid-cols-[repeat(auto-fit,_minmax(150px,_1fr))] justify-items-center items-center pt-12 gap-y-8 md:gap-[5rem]">
             {topArtists.map((artist) => (
-              <div className="flex flex-col items-center gap-2 sm:w-1/2 md:w-1/4 justify-center  min-w-[150px]">
+              <div
+                key={artist.id}
+                className="flex flex-col items-center gap-2 sm:w-1/2 md:w-1/4 justify-center  min-w-[150px]"
+              >
                 <img
                   src={artist.images[0].url}
                   alt={artist.name}
