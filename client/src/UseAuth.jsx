@@ -59,7 +59,7 @@ const UseAuth = () => {
     }
     const interval = setInterval(() => {
       axios
-        .get("http://localhost:8080/refresh_token", {
+        .get("https://spotifiler-server.vercel.app/refresh_token", {
           params: { refresh_token: refreshToken },
         })
         .then((res) => {

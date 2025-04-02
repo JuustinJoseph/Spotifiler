@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 
 const Login = () => {
   const handleLoginClick = () => {
-    window.location.href = "http://localhost:8080/login";
+    window.location.href = "https://spotifiler-server.vercel.app/login";
   };
 
   return (
