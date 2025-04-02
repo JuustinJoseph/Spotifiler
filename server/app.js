@@ -91,7 +91,7 @@ app.get("/callback", function (req, res) {
 
         // Instead of redirecting to the HTML page, redirect to a React page
         res.redirect(
-          `http://localhost:5173?access_token=${access_token}&refresh_token=${refresh_token}&expires_in=${expires_in}`
+          `https://spotifiler.vercel.app?access_token=${access_token}&refresh_token=${refresh_token}&expires_in=${expires_in}`
         );
       } else {
         res.redirect(
