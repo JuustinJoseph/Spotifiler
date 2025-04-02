@@ -29,7 +29,7 @@ const TopArtists = ({ access_token }) => {
       }
 
       setTopArtists(artists);
-      console.log(artists);
+
       setLoading(false);
     };
     fetchData();
