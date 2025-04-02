@@ -27,8 +27,8 @@ const UseAuth = () => {
         })
         .catch((err) => {
           if (err.response && err.response.status === 401) {
-            console.log("Token expired or invalid, redirecting to login");
-            window.location.href = "http://localhost:8080/login";
+            localStorage.removeItem("access_token");
+            window.location.reload(); // Force reload
           }
         });
     }

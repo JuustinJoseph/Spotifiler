@@ -116,3 +116,48 @@ export const fetchTopTracksLongTerm = async (accessToken) => {
     return null;
   }
 };
+
+export const fetchTopTracksMediumTerm = async (accessToken) => {
+  try {
+    const response = await axios.get(
+      "https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50",
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+    return response.data.items;
+  } catch (error) {
+    console.error("Error fetching top tracks (medium term):", error);
+    return null;
+  }
+};
+
+export const fetchRecentlyPlayedTracks = async (accessToken) => {
+  try {
+    const response = await axios.get(
+      "https://api.spotify.com/v1/me/player/recently-played",
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+    return response.data.items;
+  } catch (error) {
+    console.error("Error fetching recent tracks:", error);
+    return null;
+  }
+};
+
+export const fetchUserPlaylists = async (accessToken) => {
+  try {
+    const response = await axios.get(
+      "https://api.spotify.com/v1/me/playlists?limit=20&offset=0",
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+    return response.data.items;
+  } catch (error) {
+    console.error("Error fetching user playlists:", error);
+    return null;
+  }
+};

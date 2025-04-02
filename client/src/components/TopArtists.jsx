@@ -1,7 +1,10 @@
 import { React, useEffect, useState } from "react";
 import { fetchTopArtistsLongTerm } from "../data/spotifyAPI";
+import { useNavigate } from "react-router-dom";
 
 const TopArtists = ({ access_token }) => {
+  const navigate = useNavigate();
+
   const [topArtists, setTopArtists] = useState(null);
 
   useEffect(() => {
@@ -16,9 +19,14 @@ const TopArtists = ({ access_token }) => {
   }, [access_token]);
   return (
     <div className="flex flex-col px-4 gap-4 ">
-      <div className="flex justify-between items-center">
-        <h2 className="font-semibold min-w-[80px]">Your Top Artists</h2>
-        <button className="border-1 px-6 py-2 rounded-[3rem] uppercase text-[0.85rem] w-[150px]  font-light tracking-[1px] hover:bg-amber-50 hover:text-black transition duration-350 cursor-pointer">
+      <div className="flex justify-between items-center mt-[3rem]">
+        <h2 className="font-semibold  min-w-[80px] md:mt-0">
+          Your Top Artists
+        </h2>
+        <button
+          className="border-1 px-6 py-2 rounded-[3rem] uppercase text-[0.85rem] w-[150px] font-light tracking-[1px] hover:bg-amber-50 hover:text-black transition duration-350 cursor-pointer"
+          onClick={() => navigate("/artists")}
+        >
           See more
         </button>
       </div>

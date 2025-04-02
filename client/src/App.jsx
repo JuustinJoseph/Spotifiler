@@ -29,9 +29,18 @@ const App = () => {
                 path="/artists"
                 element={<TopArtists access_token={access_token} />}
               />
-              <Route path="/tracks" element={<TopTracks />} />
-              <Route path="/recent" element={<Recent />} />
-              <Route path="/playlists" element={<Playlists />} />
+              <Route
+                path="/tracks"
+                element={<TopTracks access_token={access_token} />}
+              />
+              <Route
+                path="/recent"
+                element={<Recent access_token={access_token} />}
+              />
+              <Route
+                path="/playlists"
+                element={<Playlists access_token={access_token} />}
+              />
             </Routes>
           </div>
         </>
