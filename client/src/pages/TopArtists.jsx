@@ -1,11 +1,16 @@
 import { React, useEffect, useState } from "react";
-import { fetchTopArtistsLongTerm } from "../data/spotifyAPI";
+import {
+  fetchTopArtistsLongTerm,
+  fetchTopArtistsMediumTerm,
+  fetchTopArtistsShortTerm,
+} from "../data/spotifyAPI";
 import Footer from "../components/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 
 const TopArtists = ({ access_token }) => {
   const [topArtists, setTopArtists] = useState([]);
+  const [selectedTerm, setSelectedTerm] = useState("long");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,12 +18,21 @@ const TopArtists = ({ access_token }) => {
       return;
     }
     const fetchData = async () => {
-      const top_artists = await fetchTopArtistsLongTerm(access_token);
-      setTopArtists(top_artists);
+      let artists = [];
+      if (selectedTerm == "long") {
+        artists = await fetchTopArtistsLongTerm(access_token);
+      } else if (selectedTerm == "medium") {
+        artists = await fetchTopArtistsMediumTerm(access_token);
+      } else if (selectedTerm == "short") {
+        artists = await fetchTopArtistsShortTerm(access_token);
+      }
+
+      setTopArtists(artists);
+
       setLoading(false);
     };
     fetchData();
-  }, [access_token]);
+  }, [access_token, selectedTerm]);
 
   if (loading) {
     return (
@@ -35,13 +49,40 @@ const TopArtists = ({ access_token }) => {
         <div className="flex justify-center items-center text-2xl flex-col gap-8 md:flex-row md:justify-between md:gap-0">
           <h1 className="pt-8 font-medium md:w-full">Top Artists</h1>
           <ul className="flex justify-evenly md:justify-end md:gap-[2rem] items-center w-full text-[0.8rem]  md:pt-8 ">
-            <li className="w-fit hover:underline cursor-pointer transition duration-350">
+            <li
+              className={`w-fit cursor-pointer transition duration-350 ${
+                selectedTerm == "long"
+                  ? "underline font-bold"
+                  : "hover:underline"
+              }`}
+              onClick={() => {
+                setSelectedTerm("long");
+              }}
+            >
               All Time
             </li>
-            <li className="w-fit hover:underline cursor-pointer transition duration-350">
+            <li
+              className={`w-fit cursor-pointer transition duration-350 ${
+                selectedTerm == "medium"
+                  ? "underline font-bold"
+                  : "hover:underline"
+              }`}
+              onClick={() => {
+                setSelectedTerm("medium");
+              }}
+            >
               Last 6 months
             </li>
-            <li className="w-fit hover:underline cursor-pointer transition duration-350">
+            <li
+              className={`w-fit cursor-pointer transition duration-350 ${
+                selectedTerm == "short"
+                  ? "underline font-black"
+                  : "hover:underline"
+              }`}
+              onClick={() => {
+                setSelectedTerm("short");
+              }}
+            >
               Last 4 weeks
             </li>
           </ul>

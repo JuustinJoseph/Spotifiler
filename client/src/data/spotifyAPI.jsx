@@ -57,6 +57,36 @@ export const fetchTopArtistsShortTerm = async (accessToken) => {
   }
 };
 
+export const fetchTopArtistsMediumTerm = async (accessToken) => {
+  try {
+    const response = await axios.get(
+      "https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=50",
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+    return response.data.items;
+  } catch (error) {
+    console.error("Error fetching top artists (medium term):", error);
+    return null;
+  }
+};
+
+export const fetchTopArtistsLongTerm = async (accessToken) => {
+  try {
+    const response = await axios.get(
+      "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50",
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+    return response.data.items;
+  } catch (error) {
+    console.error("Error fetching top artists (long term):", error);
+    return null;
+  }
+};
+
 export const fetchTopTracksShortTerm = async (accessToken) => {
   try {
     const response = await axios.get(
@@ -82,22 +112,7 @@ export const fetchTopTracksLongTerm = async (accessToken) => {
     );
     return response.data.items;
   } catch (error) {
-    console.error("Error fetching top tracks (short term):", error);
-    return null;
-  }
-};
-
-export const fetchTopArtistsLongTerm = async (accessToken) => {
-  try {
-    const response = await axios.get(
-      "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50",
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
-    return response.data.items;
-  } catch (error) {
-    console.error("Error fetching top artists (short term):", error);
+    console.error("Error fetching top tracks (long term):", error);
     return null;
   }
 };
