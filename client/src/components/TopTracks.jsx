@@ -22,7 +22,7 @@ const TopTracks = ({ access_token }) => {
         <h2 className="font-semibold  min-w-[80px] md:mt-0">Your Top Tracks</h2>
         <button
           className="border-1 px-6 py-2 rounded-[3rem] uppercase text-[0.85rem] w-[150px] font-light tracking-[1px] hover:bg-amber-50 hover:text-black transition duration-350 cursor-pointer"
-          onClick={() => navigate("/artists")}
+          onClick={() => navigate("/tracks")}
         >
           See more
         </button>
