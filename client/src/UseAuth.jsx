@@ -14,12 +14,12 @@ const UseAuth = () => {
   useEffect(() => {
     if (window.location.pathname !== "/callback") return;
     handleCallback()
-      .then((token) => setAccessToken(token))
       .catch((err) => {
         console.error("Spotify login failed:", err);
         sessionStorage.setItem("login_error", err.message);
       })
-      .finally(() => window.history.replaceState({}, null, "/"));
+      // Full navigation so React Router sees "/" (tokens are already in localStorage).
+      .finally(() => window.location.replace("/"));
   }, []);
 
   // Refresh the token shortly before it expires.
