@@ -8,18 +8,25 @@ import Recent from "./pages/Recent";
 import Playlists from "./pages/Playlists";
 import Login from "./Login";
 import UseAuth from "./UseAuth";
+import ErrorScreen from "./components/ErrorScreen";
+import ErrorBoundary from "./components/ErrorBoundary";
+import { useApiError } from "./data/apiErrors";
 
 const App = () => {
   const access_token = UseAuth();
+  const apiError = useApiError();
 
   return (
     <BrowserRouter>
       {!access_token ? (
         <Login />
+      ) : apiError ? (
+        <ErrorScreen error={apiError} />
       ) : (
         <>
           <Sidebar />
           <div className="md:ml-[100px] md:mr-[80px] md:mb-[20px] mb-[80px]">
+            <ErrorBoundary>
             <Routes>
               <Route
                 path="/"
@@ -42,6 +49,7 @@ const App = () => {
                 element={<Playlists access_token={access_token} />}
               />
             </Routes>
+            </ErrorBoundary>
           </div>
         </>
       )}

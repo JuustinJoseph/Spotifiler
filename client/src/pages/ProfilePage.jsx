@@ -20,6 +20,7 @@ const ProfilePage = ({ access_token }) => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     localStorage.removeItem("expires_in");
+    localStorage.removeItem("expires_at");
 
     window.location.href = "/";
   };
@@ -42,7 +43,7 @@ const ProfilePage = ({ access_token }) => {
     getData();
   }, [access_token]);
 
-  if (!profile || !following || !playlists) {
+  if (!profile || following === null || !playlists) {
     return (
       <div className="flex justify-center items-center h-screen text-green-600 opacity-40 gap-4">
         <FontAwesomeIcon icon={faCirclePlay} size="4x" fade />
