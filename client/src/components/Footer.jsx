@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="m-8 text-[0.7rem] text-gray-500 font-medium flex justify-center">
       Built and designed by &nbsp;
       <a
-        href="https://www.iamjustin.xyz/"
+        href="https://iamjustinjoseph.com/"
         target="_blank"
         className="text-green-600 underline"
       >
