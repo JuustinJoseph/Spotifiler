@@ -14,7 +14,7 @@ const Login = () => {
     localStorage.getItem("client_id") || ""
   );
   const [copied, setCopied] = useState(false);
-  const [error] = useState(() => {
+  const [error, setError] = useState(() => {
     const e = sessionStorage.getItem("login_error");
     sessionStorage.removeItem("login_error");
     return e;
@@ -22,13 +22,21 @@ const Login = () => {
 
   const redirectUri = getRedirectUri();
 
-  const handleLoginClick = () => startLogin(DEFAULT_CLIENT_ID);
+  const handleLoginClick = () => {
+    if (!DEFAULT_CLIENT_ID) {
+      setError(
+        "this site has no Client ID configured. The admin needs to set VITE_SPOTIFY_CLIENT_ID and redeploy"
+      );
+      return;
+    }
+    startLogin(DEFAULT_CLIENT_ID).catch((e) => setError(e.message));
+  };
 
   const handleOwnLogin = (e) => {
     e.preventDefault();
     const id = clientId.trim();
     if (!/^[a-f0-9]{32}$/i.test(id)) return;
-    startLogin(id);
+    startLogin(id).catch((e) => setError(e.message));
   };
 
   const copyRedirect = () => {
